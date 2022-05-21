@@ -6,102 +6,137 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  // const MyApp({Key? key}) : super(key: key);
-
-  // This widget is the root of your application.
+  final items = List<String>.generate(10000,(i) => "Item $i");
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => MyHomePage(),
-      }
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  // const MyHomePage() : super();
-
-  // final String title;
-
-  // final VoidCallback? title;
-  // MyHomePage({Key? key, this.title}) : super(key: key);
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
-
-  String text = "次へ";
-  final myFocusNode = FocusNode();
-
-  final myController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("flutter入門"),
-        actions: <Widget>[
-          Icon(Icons.add),Icon(Icons.share)
-        ]
-      ),
-      body: Center(
-        child: Column(
-          children: [
-            TextField(
-              autofocus: true,
-              decoration: InputDecoration(
-                hintText: "田中太郎",
-              )
-            ),
-            TextField(
-              controller: myController,
-                focusNode: myFocusNode,
-                decoration: InputDecoration(
-                  hintText: "趣味",
-                ),
-                onChanged: (text) {
-                  print("First text field: $text");
-      }
-                ),
-          ElevatedButton(
-                child: Text('新規登録'),
+      home: Scaffold(
+        appBar: AppBar(
+          centerTitle: false,
+          leading: Icon(Icons.videocam),
+          title: const Text("Youtubeアプリ"),
+          actions: <Widget>[
+            SizedBox(
+              width: 40,
+              child: FlatButton(
+                child: Icon(Icons.search),
                 onPressed: () {
-                  print(myController.text);
-                  myFocusNode.requestFocus();
                 },
-              )
-          ],
-        )
-      ),
+              ),
+            ),
+            SizedBox(
+              width: 40,
+              child: FlatButton(
+                child: Icon(Icons.more_vert),
+                onPressed: () {
+                },
+              ),
+            )
+          ]
+        ),
+          body: Container(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: <Widget>[
+                      SizedBox(
+                        width: 60,
+                        height: 40,
+                        child: Image.network(
+                          "https://yt3.ggpht.com/OSc5In8tYOJ3a_WlZiFCe507_xnAz8zh3Qdvy84jPGU_MMVQnxql18V1xAwnOGYsOuE62npdxg=s176-c-k-c0x00ffffff-no-rj"
+                        ),
+                      ),
+                      const SizedBox(
+                        width:8
+                      ),
+                      Column(
+                        children: <Widget>[
+                          const Text(
+                            "KboyのFlutter大学"
+                          ),
+                          FlatButton(
+                            child: Row(
+                              children: <Widget>[
+                                Icon(Icons.video_call,
+                                  color: Colors.red
+                                ),
+                                Text("登録する")
+
+                              ]
+                            ),
+                              onPressed: () {
+                            }
+                          )
+                        ]
+                      ),
+                    ]
+                  ),
+                ),
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: items.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        contentPadding: EdgeInsets.all(8),
+                        leading: Image.network(
+                          "https://yt3.ggpht.com/OSc5In8tYOJ3a_WlZiFCe507_xnAz8zh3Qdvy84jPGU_MMVQnxql18V1xAwnOGYsOuE62npdxg=s176-c-k-c0x00ffffff-no-rj"
+                        ),
+                      title: Column(
+                        children: [
+                          Text("Flutter入門",style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                          )
+                          ),
+
+                          Row(
+                            children: <Widget>[
+                              Text("267回再生"),
+                              Text("5日前"),
+                            ]
+                          )
+                        ],
+                      ),
+                        trailing: Icon(Icons.more_vert),
+                      );
+                    },
+                  ),
+                ),
+              ],
+            )
+          )
+      )
+
     );
   }
 }
+
+// class MyHomePage extends StatefulWidget {
+//
+//   @override
+//   State<MyHomePage> createState() => _MyHomePageState();
+// }
+
+// class _MyHomePageState extends State<MyHomePage> {
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         // Here we take the value from the MyHomePage object that was created by
+//         // the App.build method, and use it to set our appbar title.
+//         title: Text("flutter入門"),
+//         actions: <Widget>[
+//           Icon(Icons.add),Icon(Icons.share)
+//         ]
+//       ),
+//       body: Center(
+//       ),
+//     );
+//   }
+// }
