@@ -12,21 +12,12 @@ class NextPage extends StatelessWidget {
       ),
       body: Container(
         height: double.infinity,
-        color: Colors.red,
-        child: Column(
-          children: [
-            Text(name),
-            Center(
-              child:  ElevatedButton(
-                child: Text("戻る"),
-                onPressed: () {
-                // ここに押したら反応するコードを書く
-                Navigator.pop(context,"こんばんは");
-    },
-              ),
-            ),
-          ],
+        child: TextFormField(
+            decoration: InputDecoration(
+              hintText: "田中太郎",
+            )
         ),
+
       ),
     );
   }

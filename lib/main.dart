@@ -52,6 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   String text = "次へ";
+  final myFocusNode = FocusNode();
+
+  final myController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -71,26 +74,34 @@ class _MyHomePageState extends State<MyHomePage> {
         ]
       ),
       body: Center(
-       child:  ElevatedButton(
-         child: Text(text),
-         onPressed: () async {
-           // ここに押したら反応するコードを書く
-           final result = await Navigator.push(
-             context,
-             MaterialPageRoute(
-               builder: (context) => NextPage("flutter hogehoge"),
-             ),
-           );
-           text = result;
-           print(result);
-         },
-       ),
+        child: Column(
+          children: [
+            TextField(
+              autofocus: true,
+              decoration: InputDecoration(
+                hintText: "田中太郎",
+              )
+            ),
+            TextField(
+              controller: myController,
+                focusNode: myFocusNode,
+                decoration: InputDecoration(
+                  hintText: "趣味",
+                ),
+                onChanged: (text) {
+                  print("First text field: $text");
+      }
+                ),
+          ElevatedButton(
+                child: Text('新規登録'),
+                onPressed: () {
+                  print(myController.text);
+                  myFocusNode.requestFocus();
+                },
+              )
+          ],
+        )
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
 }
